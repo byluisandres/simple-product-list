@@ -1,0 +1,16 @@
+
+
+export const create = async (product) => {
+  let response;
+  try {
+    const res = await fetch("http://localhost:4000/productos", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    response = console.error("Error:", error);
+  }
+};
