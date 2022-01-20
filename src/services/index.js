@@ -1,5 +1,3 @@
-
-
 export const create = async (product) => {
   let response;
   try {
@@ -13,4 +11,12 @@ export const create = async (product) => {
   } catch (error) {
     response = console.error("Error:", error);
   }
+};
+
+export const getProducts = async () => {
+  return await fetch("http://localhost:4000/productos")
+    .then((response) => response.json())
+    .then(function (data) {
+      return data;
+    });
 };

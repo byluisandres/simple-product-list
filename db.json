@@ -1,18 +1,18 @@
 {
   "productos": [
     {
-      "nombre": "Rib Eye",
-      "precio": "500",
+      "name": "Rib Eye",
+      "price": "500",
       "id": 7
     },
     {
-      "nombre": "Jugo de Limón",
-      "precio": 100,
+      "name": "Jugo de Limón",
+      "price": 100,
       "id": 9
     },
     {
-      "nombre": "1",
-      "precio": 2,
+      "name": "1",
+      "price": 2,
       "id": 10
     },
     {
@@ -189,6 +189,16 @@
       "name": "ghgf",
       "price": 80,
       "id": 45
+    },
+    {
+      "name": "fdg",
+      "price": 80,
+      "id": 46
+    },
+    {
+      "name": "tytrhy",
+      "price": 30,
+      "id": 47
     }
   ]
 }
