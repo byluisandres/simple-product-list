@@ -6,9 +6,12 @@ import {
   START_DOWNLOAD_PRODUCTS,
   DOWNLOAD_PRODUCTS_SUCCESS,
   DOWNLOAD_PRODUCTS_ERROR,
+  GET_PRODUCT_DELETE,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_ERROR,
 } from "../types";
 // Services
-import { create, getProducts } from "../services";
+import { create, getProducts, deleteProduct } from "../services";
 
 // Crear nuevos productos
 export function createNewProductAction(product) {
@@ -64,5 +67,32 @@ const downloadProductsSuccess = (data) => ({
 
 const downloadProductsError = () => ({
   type: DOWNLOAD_PRODUCTS_ERROR,
+  payload: true,
+});
+
+// eliminar producto
+export function deleteProductAction(id) {
+  return async (dispatch) => {
+    dispatch(getProductDelete(id));
+    try {
+      await deleteProduct(id);
+      dispatch(productDeleteSucces());
+    } catch (error) {
+      console.log(error);
+      dispatch(productDeleteError());
+    }
+  };
+}
+const getProductDelete = (id) => ({
+  type: GET_PRODUCT_DELETE,
+  payload: id,
+});
+
+const productDeleteSucces = () => ({
+  type: PRODUCT_DELETE_SUCCESS,
+});
+
+const productDeleteError = () => ({
+  type: PRODUCT_DELETE_ERROR,
   payload: true,
 });

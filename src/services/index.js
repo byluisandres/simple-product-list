@@ -20,3 +20,16 @@ export const getProducts = async () => {
       return data;
     });
 };
+
+export const deleteProduct = async (id) => {
+  let response;
+  try {
+    await fetch(`http://localhost:4000/productos/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.text()) // or res.json()
+      .then((res) => console.log(res));
+  } catch (error) {
+    response = console.error("Error:", error);
+  }
+};

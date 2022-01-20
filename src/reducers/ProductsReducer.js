@@ -6,6 +6,9 @@ import {
   START_DOWNLOAD_PRODUCTS,
   DOWNLOAD_PRODUCTS_SUCCESS,
   DOWNLOAD_PRODUCTS_ERROR,
+  GET_PRODUCT_DELETE,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_ERROR,
 } from "../types";
 
 // Cada reducer tiene su state
@@ -32,6 +35,7 @@ export default function (state = initialState, action) {
       };
     case ADD_PRODUCT_ERROR:
     case DOWNLOAD_PRODUCTS_ERROR:
+    case PRODUCT_DELETE_ERROR:
       return {
         ...state,
         loading: false,
@@ -45,6 +49,19 @@ export default function (state = initialState, action) {
         products: action.payload,
       };
     }
+    case GET_PRODUCT_DELETE:
+      return {
+        ...state,
+        producteliminar: action.payload,
+      };
+    case PRODUCT_DELETE_SUCCESS:
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product.id !== state.producteliminar
+        ),
+        producteliminar: null,
+      };
     default:
       return state;
   }

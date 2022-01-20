@@ -2,7 +2,15 @@ import React from "react";
 import { Pencil, Trash } from "phosphor-react";
 import { Link } from "react-router-dom";
 
+// redux
+import { useDispatch } from "react-redux";
+import { deleteProductAction } from "../../actions/productsActions";
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+
+  const handleClick = (id) => {
+    dispatch(deleteProductAction(id));
+  };
   return (
     <tr>
       <th scope="row">{product.name}</th>
@@ -26,9 +34,13 @@ const Product = ({ product }) => {
               </Link>
             </li>
             <li>
-              <a className="dropdown-item text-danger" href="#">
+              <span
+                className="dropdown-item text-danger"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleClick(product.id)}
+              >
                 <Trash size={20} color="#DC2626" /> Borrar
-              </a>
+              </span>
             </li>
           </ul>
         </div>
