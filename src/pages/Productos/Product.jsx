@@ -1,20 +1,31 @@
 import React from "react";
 import { Pencil, Trash } from "phosphor-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // redux
 import { useDispatch } from "react-redux";
 import { deleteProductAction } from "../../actions/productsActions";
 const Product = ({ product }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClick = (id) => {
     dispatch(deleteProductAction(id));
   };
+
+  // Función que redirige de forma programada
+  const handleClickEdit = (product) => {
+    navigate(`/edit/${product.id}`, { replace: true });
+  };
   return (
     <tr>
-      <th scope="row">{product.name}</th>
-      <td>{product.price}</td>
+      <td scope="row">{product.name}</td>
+      <td scope="row">
+        {new Intl.NumberFormat("es-ES", {
+          style: "currency",
+          currency: "EUR",
+        }).format(product.price)}
+      </td>
 
       <td>
         <div className="dropdown">
@@ -29,9 +40,13 @@ const Product = ({ product }) => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <Link className="dropdown-item" to={`/edit/${product.id}`}>
+              <span
+                className="dropdown-item"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleClickEdit(product)}
+              >
                 <Pencil size={20} /> Editar
-              </Link>
+              </span>
             </li>
             <li>
               <span

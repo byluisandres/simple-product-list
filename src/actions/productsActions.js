@@ -9,9 +9,19 @@ import {
   GET_PRODUCT_DELETE,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_ERROR,
+  GET_PRODUCT_EDIT,
+  START_PRODUCT_EDIT,
+  PRODUCT_EDIT_SUCCESS,
+  PRODUCT_EDIT_ERROR,
 } from "../types";
 // Services
-import { create, getProducts, deleteProduct } from "../services";
+import {
+  create,
+  getProducts,
+  deleteProduct,
+  getProductId,
+  edit,
+} from "../services";
 
 // Crear nuevos productos
 export function createNewProductAction(product) {
@@ -70,6 +80,47 @@ const downloadProductsError = () => ({
   payload: true,
 });
 
+// Obtener Producto editar
+export function getProductEditAction(id) {
+  return async (dispatch) => {
+    const data = await getProductId(id);
+    if (data.status !== 0) {
+      dispatch(getProductEdit(data));
+    }
+  };
+}
+const getProductEdit = (product) => ({
+  type: GET_PRODUCT_EDIT,
+  payload: product,
+});
+
+// Editar producto
+export function editProductAction(product) {
+  return async (dispatch) => {
+    dispatch(editProduct());
+    try {
+      await edit(product);
+      dispatch(editProductSuccess(product));
+    } catch (error) {
+      console.log(error);
+      dispatch(editProductError());
+    }
+  };
+}
+
+const editProduct = () => ({
+  type: START_PRODUCT_EDIT,
+});
+
+const editProductSuccess = (product) => ({
+  type: PRODUCT_EDIT_SUCCESS,
+  payload: product,
+});
+
+const editProductError = () => ({
+  type: PRODUCT_EDIT_ERROR,
+  payload: true,
+});
 // eliminar producto
 export function deleteProductAction(id) {
   return async (dispatch) => {

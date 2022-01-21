@@ -65,7 +65,7 @@ const Create = () => {
           <div className="form-group mb-3">
             <label htmlFor="price">Precio Producto</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               placeholder="Precio Producto"
               value={price}
